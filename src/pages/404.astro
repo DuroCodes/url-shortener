@@ -1,0 +1,13 @@
+---
+const path = Astro.url.pathname;
+---
+
+<body
+  class="bg-zinc-900 flex flex-col items-center justify-center w-screen h-screen"
+>
+  <h1 class="text-3xl font-bold">
+    <span class="text-[#E0CCFA]">404:</span>
+    <span class="text-zinc-100">Page not found</span>
+  </h1>
+  <pre class="text-zinc-100 bg-zinc-950 px-2 border border-zinc-800 rounded-lg mt-1">Path: {path}</pre>
+</body>

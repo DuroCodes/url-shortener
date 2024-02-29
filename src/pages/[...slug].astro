@@ -1,0 +1,34 @@
+---
+import Base from "~/layout/Base.astro";
+import { supabase } from "~/lib/supabase";
+import type { ShortenedUrl } from "~/lib/utils";
+
+const { slug } = Astro.params;
+
+const { data: slugData, error: slugError } = await supabase
+  .from("urls")
+  .select("*")
+  .eq("slug", slug)
+  .single();
+
+if (!slugData || slugError) return Astro.redirect("/404");
+
+const urlData = slugData as ShortenedUrl;
+
+const { error: errorData } = await supabase
+  .from("urls")
+  .update({ views: urlData.views + 1 })
+  .eq("slug", slug);
+
+if (errorData) console.error(errorData);
+---
+
+<Base
+  title="Redirecting..."
+  redirectURL={urlData.long_url}
+  canonicalURL={urlData.long_url}
+>
+  <div class="flex flex-col items-center justify-center h-full">
+    <h1 class="text-3xl font-bold text-center">Redirecting...</h1>
+  </div>
+</Base>

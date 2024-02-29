@@ -1,0 +1,87 @@
+---
+import Base from "~/layout/Base.astro";
+const title = "Sign in";
+---
+
+<Base title={title}>
+  <main class="flex-1 flex flex-col gap-4 items-center p-4 justify-center">
+    <section class="w-full max-w-md">
+      <h1
+        class="font-semibold text-2xl dark:text-zinc-100 text-zinc-900 w-full mb-1"
+      >
+        {title}
+      </h1>
+      <p class="text-zinc-500 dark:text-zinc-400 text-sm mb-8 w-full">
+        New? <a
+          href="/register"
+          class="dark:text-blue-400 text-blue-600 underline underline-offset-2 font-medium"
+          >Create an account</a
+        >
+      </p>
+      <form
+        action="/api/auth/signin"
+        method="post"
+        class="grid grid-cols-1 gap-3 w-full"
+      >
+        <div class="grid grid-cols-1 gap-2">
+          <label
+            for="email"
+            class="font-medium dark:text-zinc-300 text-zinc-900 text-sm"
+            >Email</label
+          >
+          <input
+            id="email"
+            type="email"
+            name="email"
+            class="rounded-md py-1 px-3 dark:bg-zinc-800 dark:text-zinc-300 border bg-zinc-50 border-zinc-300 dark:border-zinc-700 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:bg-zinc-900 focus:bg-white focus:ring-opacity-60"
+          />
+        </div>
+        <label
+          for="password"
+          class="font-medium dark:text-zinc-300 text-zinc-900 text-sm"
+          >Password</label
+        >
+        <input
+          id="password"
+          type="password"
+          name="password"
+          class="rounded-md py-1 px-3 dark:bg-zinc-800 dark:text-zinc-300 border bg-zinc-50 border-zinc-300 dark:border-zinc-700 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:bg-zinc-900 focus:bg-white focus:ring-opacity-60"
+        />
+        <button
+          type="submit"
+          class="dark:bg-zinc-100 bg-zinc-900 border-zinc-900 py-1.5 border dark:border-zinc-100 rounded-md mt-2 dark:text-zinc-900 text-zinc-100 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-zinc-900 disabled:opacity-50 disabled:cursor-not-allowed"
+          >Sign In</button
+        >
+      </form>
+      <hr class="h-0 border-t mt-8 dark:border-zinc-600 border-zinc-300" />
+      <p class="-mt-2.5 text-xs text-center dark:text-zinc-400 text-zinc-500">
+        <span class="dark:bg-zinc-900 bg-zinc-50 px-4">Or with</span>
+      </p>
+      <form
+        action="/api/auth/signin"
+        method="post"
+        class="w-full max-w-md mt-6 flex flex-col gap-2"
+      >
+        <button
+          value="discord"
+          name="provider"
+          type="submit"
+          class="w-full dark:bg-zinc-100 p-1.5 border border-zinc-300 dark:border-zinc-100 flex justify-center items-center gap-2 rounded-md mt-2 dark:text-zinc-900 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-zinc-900 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -28.5 256 256"
+            class="h-5 w-auto"
+          >
+            <path
+              d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z"
+              fill="#5865F2"
+            >
+            </path>
+          </svg>
+           Sign in with Discord
+        </button>
+      </form>
+    </section>
+  </main>
+</Base>

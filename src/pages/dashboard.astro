@@ -1,0 +1,72 @@
+---
+import Base from "~/layout/Base.astro";
+
+import ShortenForm from "~/components/ShortenForm";
+import {
+  CardTitle,
+  CardDescription,
+  CardHeader,
+  CardContent,
+  Card,
+} from "~/components/ui/card";
+import {
+  TableHead,
+  TableRow,
+  TableHeader,
+  TableCell,
+  TableBody,
+  Table,
+} from "~/components/ui/table";
+import { supabase } from "~/lib/supabase";
+import type { ShortenedUrl } from "~/lib/utils";
+
+const { data, error } = await supabase.from("urls").select("*");
+const urls = data as ShortenedUrl[];
+
+if (error) console.error(error);
+---
+
+<Base title="Dashboard">
+  <div class="flex flex-col gap-2 p-6">
+    <div class="w-full space-y-2">
+      <div class="w-full mx-auto grid gap-2">
+        <div
+          class="w-full rounded-lg border border-zinc-200 dark:border-zinc-700"
+        >
+          <ShortenForm client:load />
+        </div>
+      </div>
+    </div>
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle>Shortened URLs</CardTitle>
+        <CardDescription>Here are your shortened URLs</CardDescription>
+      </CardHeader>
+      <CardContent className="p-0">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[150px]">Slug</TableHead>
+              <TableHead>Long URL</TableHead>
+              <TableHead className="w-[100px] text-right">Views</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {urls.map(({ slug, long_url, views }) => (
+              <TableRow>
+                <TableCell>
+                  <a class="font-medium underline" href={`/${slug}`}>{slug}</a>
+                </TableCell>
+                <TableCell>
+                  <a class="font-medium underline" href="#">
+                    {long_url}
+                  </a>
+                </TableCell>
+                <TableCell className="text-right">{views}</TableCell>
+              </TableRow>
+            ))}
+        </Table>
+      </CardContent>
+    </Card>
+  </div>
+</Base>
