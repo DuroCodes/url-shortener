@@ -4,7 +4,7 @@ import micromatch from "micromatch";
 
 const protectedRoutes = ["/dashboard(|/)"];
 const redirectRoutes = ["/signin(|/)", "/register(|/)"];
-const whitelistedEmails = ["davidwright13503@gmail.com"];
+const whitelistedEmails = import.meta.env.WHITELISTED_EMAILS.split(",").map((x: string) => x.trim());
 
 export const onRequest = defineMiddleware(
   async ({ locals, url, cookies, redirect }, next) => {
@@ -34,7 +34,7 @@ export const onRequest = defineMiddleware(
       locals.email = data.user?.email!;
 
       if (!whitelistedEmails.includes(locals.email)) {
-        return redirect("/signin");
+        return redirect("/unauthorized");
       }
 
       cookies.set("sb-access-token", data?.session?.access_token!, {
