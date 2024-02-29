@@ -3,15 +3,17 @@ interface Props {
   title: string;
   canonicalURL?: string;
   redirectURL?: string;
+  meta?: boolean;
 }
 
 const description = "Duro's URL Shortener";
 const { title, redirectURL, canonicalURL } = Astro.props;
 const canonical = canonicalURL ?? new URL(Astro.url).href;
+const meta = Astro.props.meta ?? true;
 ---
 
 <html lang="en" class="h-full w-full">
-  <head>
+  { meta ? <head>
     <title>{title}</title>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -29,7 +31,7 @@ const canonical = canonicalURL ?? new URL(Astro.url).href;
         <meta http-equiv="refresh" content={`0; url=${redirectURL}`} />
       ) : null
     }
-  </head>
+  </head> : null }
   <body
     class="flex flex-col h-full w-full dark:bg-zinc-900 bg-zinc-50 dark:text-zinc-100"
   >

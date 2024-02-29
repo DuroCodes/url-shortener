@@ -23,11 +23,7 @@ const { error: errorData } = await supabase
 if (errorData) console.error(errorData);
 ---
 
-<Base
-  title="Redirecting..."
-  redirectURL={urlData.long_url}
-  canonicalURL={urlData.long_url}
->
+<Base title="Redirect" meta={false}>
   <div class="flex flex-col items-center justify-center h-full">
     <h1 class="text-3xl font-bold text-center">Redirecting...</h1>
   </div>
